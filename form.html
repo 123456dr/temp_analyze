@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -69,6 +70,9 @@
     </div>
 
 
+
+
+
     <!-- 在這裡插入你的圖表 -->
     <canvas id="myChart" width="1200" height="500"></canvas>
 
@@ -119,23 +123,13 @@
                         label: '溫度',
                         data: temperatures,
                         borderColor: 'rgb(255, 99, 132)',
-                        fill: false,
-                        trendlineLinear: {
-                            style: "rgba(255, 99, 132, 0.3)", // 趨勢線的樣式
-                            lineStyle: "solid", // 趨勢線的線條樣式
-                            width: 2 // 趨勢線的寬度
-                        }
+                        fill: false
                     },
                     {
                         label: '濕度',
                         data: humidities,
                         borderColor: 'rgb(54, 162, 235)',
-                        fill: false,
-                        trendlineLinear: {
-                            style: "rgba(54, 162, 235, 0.3)", // 趨勢線的樣式
-                            lineStyle: "solid", // 趨勢線的線條樣式
-                            width: 2 // 趨勢線的寬度
-                        }
+                        fill: false
                     }
                 ]
             },
@@ -157,4 +151,22 @@
         <br><br>
         R2 &nbsp;&nbsp; &nbsp;&nbsp;:<input type="text" id="variation" placeholder="輸入R②">
         <br>
-        方程式 :<input type="text" id="std
+        方程式 :<input type="text" id="stdDeviation" placeholder="輸入方程式">
+    </h2>
+
+    <!-- 輸入框 -->
+    
+        
+    </div>
+
+
+<br>
+    <br><br>
+    <br>
+
+
+    <footer class="footer">
+        <p>&copy; 2024/3/18初稿 RCcc. orz.</p>
+    </footer>
+</body>
+</html>
