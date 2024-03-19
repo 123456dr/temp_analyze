@@ -1,8 +1,27 @@
-var cleanedData = `t=32 h=77 
-t=34 h=78 t=35 h=78 
-t=37 h=80 t=40 
-h=82 `;
-    const  myData= cleanedData.replace(/\n/g, ''); // 移除所有換行符
+var cleanedData = `t=2 h=12
+t=34 h=78
+t=35 h=78
+t=37 h=80
+t=2 h=12
+t=34 h=78
+t=35 h=78
+t=37 h=80
+t=2 h=12
+t=34 h=78
+t=35 h=78
+t=37 h=80
+t=2 h=12
+t=34 h=78
+t=0 h=0
+
+
+
+
+
+
+
+`;
+    const  myData= cleanedData.replace(/\n/g, ' '); // 移除所有換行符
     
 
 
