@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <title>溫濕度圖表</title>
+    <title>溫度圖表</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,7 +49,7 @@
           <!-- 在 xs 尺寸，佔12格，可參考 http://getbootstrap.com/css/#grid 說明-->
           <div class="col-xs-12">
             <!--網站標題-->
-            <h1 class="text-center">溫溼度感測</h1>
+            <h1 class="text-center">溫度感測</h1>
             <h5 class="text-center">
                 <p id="datetime"></p>
                     <script>
@@ -120,13 +120,13 @@
                 labels: Array.from({ length: temperatures.length }, (_, i) => i), // 生成連續數字標籤
                 datasets: [
                     {
-                        label: '溫度',
+                        label: '對照組溫度',
                         data: temperatures,
                         borderColor: 'rgb(255, 99, 132)',
                         fill: false
                     },
                     {
-                        label: '濕度',
+                        label: '實驗組溫度',
                         data: humidities,
                         borderColor: 'rgb(54, 162, 235)',
                         fill: false
@@ -166,7 +166,7 @@
 
 
     <footer class="footer">
-        <p>&copy; 2024/3/18初稿 RCcc. orz.</p>
+        <p>&copy; 2024/3/18第二稿-溫度篇 RCcc. orz.</p>
     </footer>
 </body>
 </html>
