@@ -1,10 +1,10 @@
-var cleanedData = `t=34
+var cleanedData = `t=0
 t=78
 t=35
 t=78
 t=37
 t=80
-h=2
+h=0
 h=12
 h=34
 h=78
