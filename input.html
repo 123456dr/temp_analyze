@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>輸入溫濕度資料</title>
+    <title>輸入溫度資料</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,6 +25,10 @@
             text-align: center;
             font-family: "標楷體", sans-serif; /* 設置為標楷體字型 */
         }
+        #bbr {
+            text-align: center;
+            font-family: "標楷體", sans-serif; /* 設置為標楷體字型 */
+        }
     </style>
 
     <style>
@@ -37,8 +41,7 @@
             bottom: 0;
             width: 100%;
         }
-
-
+/*
         b {
             display: flex;
             justify-content: center;
@@ -47,16 +50,21 @@
             
         }
         #rightColumn {
+            position: fixed; /* 固定位置 */
+            /*top: 0; /* 從頂部開始 */
+            /*padding: 200px;
+        }*/
+        #r {
             flex: 1;
-            padding: 100px;
-        }#r {
-            flex: 1;
-            padding: 200px;
+            padding: 150px;
         }
         #a {
-            flex: 1;
-            padding: 80px;
+            flex: none;
+            padding: 0px;
         }
+
+        
+        
     </style>
 
     
@@ -64,6 +72,7 @@
     
 </head>
 <body>
+    <bbr>
 
     
     <div class="jumbotron">
@@ -74,7 +83,7 @@
             <div class="col-xs-12">
               <!--網站標題-->
                 
-              <h1 class="text-center">溫溼度感測</h1>
+              <h1 class="text-center">溫度感測</h1>
               <h5 class="text-center">
                   <p id="datetime"></p>
                       <script>
@@ -125,50 +134,60 @@
         </div>
 
 
-          <div id="r">
-          <div id="analysisResult">
-              <br><hr><h2>格式化：</h2>
-              <ul id="resultList"></ul>
-          </div>
-      </div>
+     
+          
+      
+      
 
 
 
 
-          <script>
-            document.getElementById("dataForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // 防止表單提交到另一個頁面
 
-    var inputData = document.getElementById("data").value;
 
-    // 使用正則表達式進行匹配
-    var matches = inputData.match(/\d+/g);
 
-    var resultList = document.getElementById("resultList");
-    resultList.innerHTML = ""; // 清空先前的結果
 
-    if (matches) {
+
+        <div id="analysisResult">
+            <br><hr><h2>格式化：</h2>
+            <ul id="resultList"></ul>
+        </div>
+        
+        
+        
+        
+        
+        <script>
+          document.getElementById("dataForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // 防止表單提交到另一個頁面
+        
+        var inputData = document.getElementById("data").value;
+        
+        // 使用正則表達式進行匹配
+        var matches = inputData.match(/\d+/g);
+        
+        var resultList = document.getElementById("resultList");
+        resultList.innerHTML = ""; // 清空先前的結果
+        
+        if (matches) {
         var output = '';
         for (var i = 0; i < matches.length; i++) {
-            // 根據數字的奇偶性決定要輸出的文字
-            if (i % 2 === 0) {
-                output += 't=' + matches[i] + ' ';
-            } else {
-                output += 'h=' + matches[i] + ' <br>'; // 加上換行
-            }
+          // 根據數字的奇偶性決定要輸出的文字
+          if (i % 2 === 0) {
+              output += 't=' + matches[i] + ' ';
+          } else {
+              output += 'h=' + matches[i] + '<br>'; // 加上換行
+          }
         }
         // 創建列表項並添加到結果列表中
         var listItem = document.createElement("li");
         listItem.innerHTML = output.trim(); // 使用 innerHTML 而非 textContent
         resultList.appendChild(listItem);
-    } else {
+        } else {
         resultList.innerHTML = "<li>無匹配結果</li>";
-    }
-});
-
-          </script>
-      
-      
+        }
+        });
+        
+        </script>
 
 
 
@@ -184,47 +203,45 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
+<br><br><br><br><br><br>
       <div id="rightColumn">
       <h2>目前系統數據</h2>
 
       <div id="outputData">
           <!-- 這裡會放置資料輸出 -->
       </div>
-  <br><script src="data.js"></script>
+
+
+      <br><script src="data.js"></script>
       <script>
-          // 輸入的資料
-          
+        // 移除所有換行符
+        //var dataArr = myData.split('\n');
+    
+        // 按照指定的格式分割資料
+        var dataArr = myData.split(' ');
+    
+        var outputDataDiv = document.getElementById("outputData");
+    
+        // 將資料按照指定格式輸出到網頁上
+        for (var i = 0; i < dataArr.length; i++) {
+            if (i % 2 === 0) {
+                var p = document.createElement("p");
+                var line = "";
+                // 每兩個資料為一組，以 't=數字 h=數字' 的格式顯示
+                line += dataArr[i] + ' ' + dataArr[i + 1];
+                p.textContent = line;
+                outputDataDiv.appendChild(p);
+    
+                // 加上換行
+                outputDataDiv.appendChild(document.createElement("br"));
+            }
+        }
+    </script>
+    
+    
+
   
-          // 移除所有換行符
-          var dataArr = myData.split('\n');
-  
-          // 按照指定的格式分割資料
-          var dataArr = myData.split(' ');
-  
-          var outputDataDiv = document.getElementById("outputData");
-  
-          // 將資料按照指定格式輸出到網頁上
-          for (var i = 0; i < dataArr.length; i++) {
-              if (i % 2 === 0) {
-                  var p = document.createElement("p");
-                  var line = "";
-                  // 每兩個資料為一組，以 't=數字 h=數字' 的格式顯示
-                  line += dataArr[i] + ' ' + dataArr[i + 1];
-                  p.textContent = line;
-                  outputDataDiv.appendChild(p);
-              }
-          }
-      </script>
+      
       
 
 
@@ -240,15 +257,14 @@
 </b>
      
 
-
-
+</bbr>
 
 
     <br><br><br><br><br><br>
       
 
     <footer class="footer">
-        <p>&copy; 2024/3/18初稿 RCcc. orz.</p>
+        <p>&copy; 2024/3/18第二稿-溫度篇 RCcc. orz.</p>
     </footer>
 
 
