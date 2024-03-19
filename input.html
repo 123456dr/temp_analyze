@@ -200,13 +200,13 @@
       <div id="outputData">
           <!-- 這裡會放置資料輸出 -->
       </div>
-  <br>
+  <br><script src="data.js"></script>
       <script>
           // 輸入的資料
-          var cleanedData = `t=0 h=65 t=23 h=43 t=34 h=55 t=24 h=64 t=525 h=4`;
+          
   
           // 移除所有換行符
-          const myData = cleanedData.replace(/\n/g, '');
+          var dataArr = myData.split('\n');
   
           // 按照指定的格式分割資料
           var dataArr = myData.split(' ');
