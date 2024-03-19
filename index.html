@@ -76,7 +76,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <title>溫濕度資料</title>
+    <title>溫度資料</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -93,24 +93,15 @@
         // 分割資料為陣列
         const dataArray = rawData.split(" ");
 
-        // 輸出溫度和濕度對
-        let outputHTML = "";
-        for (let i = 0; i < dataArray.length; i += 2) {
-            const temperature = dataArray[i].match(/t=(\d+)/)[1];
-            const humidity = dataArray[i + 1].match(/h=(\d+)/)[1];
-            outputHTML += `溫度：${temperature.padEnd(10)}濕度：${humidity}<br>`;
-        }
-
-        // 輸出結果到output元素
-        document.getElementById("output").innerHTML = outputHTML;
-        </script>
-<div id="infoContainer">
         
+        </script><h3>實驗組</h3><br>
+<div id="infoContainer">
+    
         <h3 id="humidityOutput"></h3>
         <h3 id="lastHumidityOutput"></h3>
         <h3 id="humidityChangeOutput"></h3>
         </div>
-        <hr> 
+        <hr> <h3>對照組</h3><br>
  <div id="infoContainer">
         <h3 id="temperatureOutput"></h3>
         <h3 id="lastTemperatureOutput"></h3>
@@ -118,6 +109,12 @@
         
     
 </div>
+
+
+
+
+
+
     <script>
         
 
@@ -129,9 +126,9 @@
         const temperatureChangeOutput = document.getElementById('temperatureChangeOutput');
         const humidityChangeOutput = document.getElementById('humidityChangeOutput');
 
-        temperatureOutput.textContent = `初始濕度：${firstTemp}`;
-        lastTemperatureOutput.textContent = `最終濕度：${lastTemp}`;
-        temperatureChangeOutput.textContent = `濕度變化量：${tempChange}`;
+        temperatureOutput.textContent = `初始溫度：${firstTemp}`;
+        lastTemperatureOutput.textContent = `最終溫度：${lastTemp}`;
+        temperatureChangeOutput.textContent = `溫度變化量：${tempChange}`;
         humidityOutput.textContent = `初始溫度：${firstHumid}`;
         lastHumidityOutput.textContent = `最後溫度：${lastHumid}`;
         humidityChangeOutput.textContent = `溫度變化量：${humidChange}`;
@@ -150,7 +147,7 @@
     </style>
 
      <footer class="footer">
-        <p>&copy; 2024/3/18初稿 RCcc. orz.</p>
+        <p>&copy; 2024/3/18第二稿-溫度篇 RCcc. orz.</p>
     </footer>
 
 <br> <br> <br> <br>
