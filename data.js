@@ -1,5 +1,5 @@
-var cleanedData = `t=2 h=12
-t=34 h=78
+var cleanedData = `t=0 h=0
+t=22 h=67
 t=35 h=78
 t=37 h=80
 t=2 h=12
