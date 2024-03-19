@@ -143,52 +143,80 @@
 
 
 
-
-
-
-
-        <div id="analysisResult">
-            <br><hr><h2>格式化：</h2>
-            <ul id="resultList"></ul>
+        <div id="analysisResult1">
+            <br><hr><h2>格式化(方式一)：</h2>
+            <ul id="resultList1"></ul>
         </div>
         
-        
-        
-        
+        <div id="analysisResult2">
+            <br><hr><h2>格式化(方式二)：</h2>
+            <ul id="resultList2"></ul>
+        </div>
         
         <script>
-          document.getElementById("dataForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // 防止表單提交到另一個頁面
+        document.getElementById("dataForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // 防止表單提交到另一個頁面
+            
+            var inputData = document.getElementById("data").value;
+            
+            // 使用正則表達式進行匹配
+            var matches = inputData.match(/\d+/g);
+            var matche = inputData.match(/\d+/g);
+            var resultList1 = document.getElementById("resultList1");
+            var resultList2 = document.getElementById("resultList2");
+            resultList1.innerHTML = ""; // 清空先前的方式一結果
+            resultList2.innerHTML = ""; // 清空先前的方式二結果
+            
+            if (matches) {
+                var output1 = ''; // 用於方式一的輸出
+                
+                var halfLength = Math.ceil(matches.length / 2); // 計算數字的一半
+                
+                for (var i = 0; i < halfLength; i++) {
+                    // 方式一：前半部分輸出t=數字
+                    output1 += 't=' + matches[i] + '<br>';
+                }
+                
+                for (var i = halfLength; i < matches.length; i++) {
+                    // 方式一：後半部分輸出h=數字
+                    output1 += 'h=' + matches[i] + '<br>';
+                }
+                
+                // 創建方式一的列表項並添加到結果列表中
+                var listItem1 = document.createElement("li");
+                listItem1.innerHTML = output1.trim(); // 使用 innerHTML 而非 textContent
+                resultList1.appendChild(listItem1);
+            } else {
+                // 若沒有匹配結果，則顯示提示信息
+                resultList1.innerHTML = "<li>無匹配結果</li>";
+            }
+            
+            if (matche) {
+                var output2 = '';
+                for (var i = 0; i < matche.length; i++) {
+                    // 根據數字的奇偶性決定要輸出的文字
+                    if (i % 2 === 0) {
+                        output2 += 't=' + matche[i];
+                    } else {
+                        output2 += ' h=' + matche[i] + '<br>'; // 加上換行
+                    }
+                }
         
-        var inputData = document.getElementById("data").value;
-        
-        // 使用正則表達式進行匹配
-        var matches = inputData.match(/\d+/g);
-        
-        var resultList = document.getElementById("resultList");
-        resultList.innerHTML = ""; // 清空先前的結果
-        
-        if (matches) {
-        var output = '';
-        for (var i = 0; i < matches.length; i++) {
-          // 根據數字的奇偶性決定要輸出的文字
-          if (i % 2 === 0) {
-              output += 't=' + matches[i] + ' ';
-          } else {
-              output += 'h=' + matches[i] + '<br>'; // 加上換行
-          }
-        }
-        // 創建列表項並添加到結果列表中
-        var listItem = document.createElement("li");
-        listItem.innerHTML = output.trim(); // 使用 innerHTML 而非 textContent
-        resultList.appendChild(listItem);
-        } else {
-        resultList.innerHTML = "<li>無匹配結果</li>";
-        }
+                // 創建方式二的列表項並添加到結果列表中
+                var listItem2 = document.createElement("li");
+                listItem2.innerHTML = output2.trim(); // 使用 innerHTML 而非 textContent
+                resultList2.appendChild(listItem2);
+            } else {
+                // 若沒有匹配結果，則顯示提示信息
+                resultList2.innerHTML = "<li>無匹配結果</li>";
+            }
         });
-        
         </script>
-
+        
+      
+        
+      
+                
 
 
 
