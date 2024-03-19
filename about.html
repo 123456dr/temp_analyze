@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <title>RCCC</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 包含 Chart.js 库 -->
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+
+    <style>
+        /* 添加版權樣式 */
+        .footer {
+            background-color: #f4f4f4;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+
+    <style>
+        /* 將單一元素置中並更改字體 */
+        h1.text-center {
+            text-align: center;
+            font-family: "標楷體", sans-serif; /* 設置為標楷體字型 */
+        }
+    </style>
+</head>
+<body>
+    <div class="jumbotron">
+      <div class="container">
+        <!-- 建立第一個 row 空間，裡面準備放格線系統 -->
+        <div class="row">
+          <!-- 在 xs 尺寸，佔12格，可參考 http://getbootstrap.com/css/#grid 說明-->
+          <div class="col-xs-12">
+            <!--網站標題-->
+            <h1 class="text-center">溫溼度感測</h1>
+            <h5 class="text-center">
+                <p id="datetime"></p>
+                    <script>
+                        document.getElementById('datetime').textContent = new Date().toLocaleString();
+                    </script>
+            </h5>
+
+            <!-- 選單 -->
+            <ul class="nav nav-pills">
+              <li role="presentation"><a href="index.html">首頁</a></li>
+              <li role="presentation"><a href="input.html">輸入資料</a></li>
+              <li role="presentation"><a href="form.html">折線圖</a></li>
+              <li role="presentation" class="active"><a href="about.html">about</a></li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+
+    <div class="container">
+        <h2>rccc orz</h2>
+        <p>和平，謝絕攻擊orz</p>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024/3/18初稿 RCcc. orz.</p>
+    </footer>
+
+
+</body>
+</html>
