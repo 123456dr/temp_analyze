@@ -1,8 +1,7 @@
-var cleanedData = `t=7 h=7
-t=23 h=43
-t=45 h=24
-t=24 h=64
-t=0 h=0 `;
+var cleanedData = `t=0 h=0 
+    t=0 h=0 t=0 h=0 
+    t=0 h=0 t=0 
+    h=0 `;
     const  myData= cleanedData.replace(/\n/g, ''); // 移除所有換行符
     
 
