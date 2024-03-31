@@ -12,17 +12,25 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="shortcut icon" href="images/favicon.ico">
     
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>DeeplearnJS linear regresion demo</title>
+    
+    <style>
+        /* 調整表格的寬度 */
+        #myChart {
+            max-width: 800px; /* 設定最大寬度 */
+            margin: 0 auto; /* 將圖表置中 */
+        }
+        
+        .footer {
+            background-color: #f4f4f4;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 10%;
+        }
+    
+    </style>
 
-    <!-- deeplearn.js -->
-    <script src="https://unpkg.com/deeplearn@latest"></script>
-    <!-- highcharts.js -->
-    <script src="https://cdn.hcharts.cn/highcharts/highcharts.js"></script>
-
-  
     <style>
         /* 將單一元素置中並更改字體 */
         h1.text-center {
@@ -62,7 +70,135 @@
     </div>
 
 
-<div id="app" style="width: 500px;height:400px;"></div>
+
+
+
+    <!-- 在這裡插入你的圖表 -->
+    <canvas id="myChart" width="1200" height="500"></canvas>
+
+    <script src="data.js"></script>
+
+    <script>
+        // 原始溫濕度資料
+        const rawData = myData;
+
+        // 分割資料為陣列
+        const dataArray = rawData.split(" ");
+
+        // 創建空陣列以存儲處理後的資料
+        const data = [];
+
+        // 處理每條原始資料
+        dataArray.forEach(entry => {
+            // 匹配溫度和濕度數據
+            const tempMatch = entry.match(/t=(\d+)/);
+            const humidMatch = entry.match(/h=(\d+)/);
+
+            // 如果匹配成功，則提取溫度和濕度數據
+            if (tempMatch) {
+                const temp = parseInt(tempMatch[1]);
+                // 添加到 data 陣列中
+                data.push({ temperature: temp });
+            }
+
+            if (humidMatch) {
+                const humid = parseInt(humidMatch[1]);
+                // 添加到 data 陣列中
+                data.push({ humidity: humid });
+            }
+        });
+
+        // 提取溫度和濕度數據
+        const temperatures = data.filter(entry => entry.temperature !== undefined).map(entry => entry.temperature);
+        const humidities = data.filter(entry => entry.humidity !== undefined).map(entry => entry.humidity);
+
+        // 創建圖表
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: temperatures.length }, (_, i) => i), // 生成連續數字標籤
+                datasets: [
+                    {
+                        label: '對照組溫度',
+                        data: temperatures,
+                        borderColor: 'rgb(255, 99, 132)',
+                        fill: false
+                    },
+                    {
+                        label: '實驗組溫度',
+                        data: humidities,
+                        borderColor: 'rgb(54, 162, 235)',
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+    <div class="input-box text-center">
+        
+    <h2 class="text-center">
+        <br><br>
+        R2 &nbsp;&nbsp; &nbsp;&nbsp;:<input type="text" id="variation" placeholder="輸入R②">
+        <br>
+        方程式 :<input type="text" id="stdDeviation" placeholder="輸入方程式">
+    </h2>
+
+    <!-- 輸入框 -->
+    
+        
+    </div>
+
+
+<br>
+    <br><br>
+    <br>
+
+
+    <footer class="footer">
+        <p>&copy; 2024/3/18第二稿-溫度篇 RCcc. orz.</p>
+    </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DeeplearnJS linear regresion demo</title>
+
+    <!-- deeplearn.js -->
+    <script src="https://unpkg.com/deeplearn@latest"></script>
+    <!-- highcharts.js -->
+    <script src="https://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+</head>
+<body>
+    <div id="app" style="width: 500px;height:400px;"></div>
     
     <script>
 Highcharts.theme = {
@@ -157,93 +293,13 @@ Highcharts.theme = {
    }
 };
 
-
-
-    <!-- 在這裡插入你的圖表 -->
- <script src="data.js"></script>
-
-    <script>
-        // 原始溫濕度資料
-        const rawData = myData;
-
-        // 分割資料為陣列
-        const dataArray = rawData.split(" ");
-
-        // 創建空陣列以存儲處理後的資料
-        const degrees = [];
-        const salesVolume =[];
-       
-
-        // 處理每條原始資料
-        dataArray.forEach(entry => {
-            // 匹配溫度和濕度數據
-            const tempMatch = entry.match(/t=(\d+)/);
-            const humidMatch = entry.match(/h=(\d+)/);
-
-            // 如果匹配成功，則提取溫度和濕度數據
-            if (tempMatch) {
-                const temp = parseInt(tempMatch[1]);
-                // 添加到 data 陣列中
-                degrees.push({ temperature: temp });
-            }
-
-            if (humidMatch) {
-                const humid = parseInt(humidMatch[1]);
-                // 添加到 data 陣列中
-                salesVolume.push({ humidity: humid });
-            }
-        });
-
-        // 提取溫度和濕度數據
-        const temperatures = data.filter(entry => entry.temperature !== undefined).map(entry => entry.temperature);
-        const humidities = data.filter(entry => entry.humidity !== undefined).map(entry => entry.humidity);
-
-        // 創建圖表
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: Array.from({ length: temperatures.length }, (_, i) => i), // 生成連續數字標籤
-                datasets: [
-                    {
-                        label: '對照組溫度',
-                        data: temperatures,
-                        borderColor: 'rgb(255, 99, 132)',
-                        fill: false
-                    },
-                    {
-                        label: '實驗組溫度',
-                        data: humidities,
-                        borderColor: 'rgb(54, 162, 235)',
-                        fill: false
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    
-
-
-
-
-
-
-    
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
 
 
 // 建構資料
-//const degrees = [29, 28, 34, 31, 25, 29, 32, 31, 24, 33, 25, 31, 26, 30];
-//const salesVolume = [77, 62, 93, 84, 59, 64, 80, 75, 58, 91, 51, 73, 65, 84];
+const degrees = [29, 28, 34, 31, 25, 29, 32, 31, 24, 33, 25, 31, 26, 30];
+const salesVolume = [77, 62, 93, 84, 59, 64, 80, 75, 58, 91, 51, 73, 65, 84];
 
 // for 繪圖用
 const dataset = [];
@@ -297,18 +353,18 @@ const dataLine = [
 // 用 HighCharts 繪圖
 const options = {
     title: {
-        text: 'deeplearn.js  溫度與時間關係'                 
+        text: 'deeplearn.js  最高溫與紅茶銷售量'                 
     },
     xAxis: {
       title: {
-        text: '實驗組'                 
+        text: '氣溫'                 
       },
       min: 20,
       max: 40
     },
     yAxis: {
       title: {
-        text: '對照組'                 
+        text: '銷售量'                 
       },
       min: 40,
       max: 100
@@ -334,54 +390,5 @@ const options = {
 const chart = Highcharts.chart('app', options);
 
     </script>
-
-
-
-
-    <div class="input-box text-center">
-        
-    <h2 class="text-center">
-        <br><br>
-        R2 &nbsp;&nbsp; &nbsp;&nbsp;:<input type="text" id="variation" placeholder="輸入R②">
-        <br>
-        方程式 :<input type="text" id="stdDeviation" placeholder="輸入方程式">
-    </h2>
-
-    <!-- 輸入框 -->
-    
-        
-    </div>
-
-
-<br>
-    <br><br>
-    <br>
-
-
-    <footer class="footer">
-        <p>&copy; 2024/3/18第二稿-溫度篇 RCcc. orz.</p>
-    </footer>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-<html lang="en">
-<head>
-    </head>
-<body>
-
 </body>
 </html>
