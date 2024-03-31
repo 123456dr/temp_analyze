@@ -170,3 +170,225 @@
     </footer>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DeeplearnJS linear regresion demo</title>
+
+    <!-- deeplearn.js -->
+    <script src="https://unpkg.com/deeplearn@latest"></script>
+    <!-- highcharts.js -->
+    <script src="https://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+</head>
+<body>
+    <div id="app" style="width: 500px;height:400px;"></div>
+    
+    <script>
+Highcharts.theme = {
+   colors: ['#DF5353', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
+      '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+   chart: {
+      backgroundColor: {
+         linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+         stops: [
+            [0, '#2a2a2b'],
+            [1, '#3e3e40']
+         ]
+      },
+      style: {
+         fontFamily: '\'Unica One\', sans-serif'
+      },
+      plotBorderColor: '#606063'
+   },
+   title: {
+      style: {
+         color: '#E0E0E3',
+         textTransform: 'uppercase',
+         fontSize: '20px'
+      }
+   },
+   subtitle: {
+      style: {
+         color: '#E0E0E3',
+         textTransform: 'uppercase'
+      }
+   },
+   xAxis: {
+      gridLineColor: '#707073',
+      labels: {
+         style: {
+            color: '#E0E0E3'
+         }
+      },
+      lineColor: '#707073',
+      minorGridLineColor: '#505053',
+      tickColor: '#707073',
+      title: {
+         style: {
+            color: '#A0A0A3'
+         }
+      }
+   },
+   yAxis: {
+      gridLineColor: '#707073',
+      labels: {
+         style: {
+            color: '#E0E0E3'
+         }
+      },
+      lineColor: '#707073',
+      minorGridLineColor: '#505053',
+      tickColor: '#707073',
+      tickWidth: 1,
+      title: {
+         style: {
+            color: '#A0A0A3'
+         }
+      }
+   },
+   tooltip: {
+      backgroundColor: 'rgba(0, 0, 0, 0.85)',
+      style: {
+         color: '#F0F0F0'
+      }
+   },
+   
+   legend: {
+      itemStyle: {
+         color: '#E0E0E3'
+      },
+      itemHoverStyle: {
+         color: '#FFF'
+      },
+      itemHiddenStyle: {
+         color: '#606063'
+      }
+   },
+   credits: {
+      style: {
+         color: '#666'
+      }
+   },
+   labels: {
+      style: {
+         color: '#707073'
+      }
+   }
+};
+
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
+
+
+// 建構資料
+const degrees = [29, 28, 34, 31, 25, 29, 32, 31, 24, 33, 25, 31, 26, 30];
+const salesVolume = [77, 62, 93, 84, 59, 64, 80, 75, 58, 91, 51, 73, 65, 84];
+
+// for 繪圖用
+const dataset = [];
+for (let i=0; i<14; i++) {
+    dataset.push({
+        x: degrees[i],
+        y: salesVolume[i]
+    })
+}
+      
+// 運用 Deeplearn.js 結構化資料
+const degrees_data = dl.tensor1d(degrees);
+const salesVolume_data = dl.tensor1d(salesVolume);
+
+// 要 train 的參數 aw, ba
+const aw = dl.variable(dl.scalar(Math.random()));
+const ba = dl.variable(dl.scalar(Math.random()));
+
+// 定義目標函數 與 loss function （最一般的 mean square）
+// f = aw * X + ba
+const f = x => aw.mul(x).add(ba);
+const loss = (pred, label) => pred.sub(label).square().mean();
+          
+// 採用 stochastic gradient descent 來做最佳化 
+// learning rate 這邊不能設太大
+const learningRate = 0.0005;
+const optimizer = dl.train.sgd(learningRate);
+
+// trianing
+for (let i = 0; i < 30; i++) {
+  const cost = optimizer.minimize(() => loss(f(degrees_data), salesVolume_data), true, [aw, ba])
+  console.log('cost');
+  cost.print();
+  console.log('aw');
+  aw.print();
+  console.log('ba');
+  ba.print();
+}
+
+
+// 利用 dataSync() 取出 training 後得到的係數
+const awPredict = aw.dataSync();
+const baPredict = ba.dataSync();
+
+// 根據算出的係數，畫出線條頭尾兩點
+const dataLine = [
+    [22, parseFloat(22 * awPredict + baPredict)],
+    [35, parseFloat(35 * awPredict + baPredict)]
+]
+
+// 用 HighCharts 繪圖
+const options = {
+    title: {
+        text: 'deeplearn.js  最高溫與紅茶銷售量'                 
+    },
+    xAxis: {
+      title: {
+        text: '氣溫'                 
+      },
+      min: 20,
+      max: 40
+    },
+    yAxis: {
+      title: {
+        text: '銷售量'                 
+      },
+      min: 40,
+      max: 100
+    },
+    series: [
+        {
+            type: 'line',
+            name: 'predict line',
+            data: dataLine
+        },  
+        {
+            type: 'scatter',
+            name: 'dataset',
+            marker: {
+                symbol: 'cross',  
+                radius: 4         
+            },
+            data: dataset
+        }
+    ]
+}
+// 繪製圖表
+const chart = Highcharts.chart('app', options);
+
+    </script>
+</body>
+</html>
