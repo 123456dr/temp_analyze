@@ -297,9 +297,55 @@ Highcharts.theme = {
 Highcharts.setOptions(Highcharts.theme);
 
 
+
+
+
+
+
+
+
+ <script src="data.js"></script>
+
+    <script>
+        // 原始溫濕度資料
+        const rawData = myData;
+
+        // 分割資料為陣列
+        const dataArray = rawData.split(" ");
+
+        // 創建空陣列以存儲處理後的資料
+        const data = [];
+
+        // 處理每條原始資料
+        dataArray.forEach(entry => {
+            // 匹配溫度和濕度數據
+            const tempMatch = entry.match(/t=(\d+)/);
+            const humidMatch = entry.match(/h=(\d+)/);
+
+            // 如果匹配成功，則提取溫度和濕度數據
+            if (tempMatch) {
+                const temp = parseInt(tempMatch[1]);
+                // 添加到 data 陣列中
+                data.push({ temperature: temp });
+            }
+
+            if (humidMatch) {
+                const humid = parseInt(humidMatch[1]);
+                // 添加到 data 陣列中
+                data.push({ humidity: humid });
+            }
+        });
+
+        // 提取溫度和濕度數據
+        const degrees = data.filter(entry => entry.temperature !== undefined).map(entry => entry.temperature);
+        const salesVolume = data.filter(entry => entry.humidity !== undefined).map(entry => entry.humidity);
+
+
+
+
 // 建構資料
-const degrees = [29, 28, 34, 31, 25, 29, 32, 31, 24, 33, 25, 31, 26, 30];
-const salesVolume = [77, 62, 93, 84, 59, 64, 80, 75, 58, 91, 51, 73, 65, 84];
+//const degrees = [29, 28, 34, 31, 25, 29, 32, 31, 24, 33, 25, 31, 26, 30];
+//const salesVolume = [77, 62, 93, 84, 59, 64, 80, 75, 58, 91, 51, 73, 65, 84];
 
 // for 繪圖用
 const dataset = [];
