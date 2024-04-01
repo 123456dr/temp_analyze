@@ -145,6 +145,66 @@
         });
     </script>
 
+
+
+
+
+
+
+
+  <div id="rightColumn">
+      <h2>目前系統數據</h2>
+
+      <div id="outputData">
+          <!-- 這裡會放置資料輸出 -->
+      </div>
+
+
+      <br><script src="data.js"></script>
+      <script>
+        // 移除所有換行符
+        //var dataArr = myData.split('\n');
+    
+        // 按照指定的格式分割資料
+        var dataArr = temperatures.split(',');
+    
+        var outputDataDiv = document.getElementById("outputData");
+    
+        // 將資料按照指定格式輸出到網頁上
+        for (var i = 0; i < dataArr.length; i++) {
+            if (i % 2 === 0) {
+                var p = document.createElement("p");
+                var line = "";
+                // 每兩個資料為一組，以 't=數字 h=數字' 的格式顯示
+                line += dataArr[i] + ' ' + dataArr[i + 1];
+                p.textContent = line;
+                outputDataDiv.appendChild(p);
+    
+                // 加上換行
+                outputDataDiv.appendChild(document.createElement("br"));
+            }
+        }
+    </script>
+    
+    
+
+  
+      
+      
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
     <div class="input-box text-center">
         
     <h2 class="text-center">
