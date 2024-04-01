@@ -337,15 +337,15 @@ Highcharts.setOptions(Highcharts.theme);
         });
 
         // 提取溫度和濕度數據
-        const degrees = data.filter(entry => entry.temperature !== undefined).map(entry => entry.temperature);
-        const salesVolume = data.filter(entry => entry.humidity !== undefined).map(entry => entry.humidity);
+        //const degrees = data.filter(entry => entry.temperature !== undefined).map(entry => entry.temperature);
+        //const salesVolume = data.filter(entry => entry.humidity !== undefined).map(entry => entry.humidity);
 
 
 
 
 // 建構資料
-//const degrees = [29, 28, 34, 31, 25, 29, 32, 31, 24, 33, 25, 31, 26, 30];
-//const salesVolume = [77, 62, 93, 84, 59, 64, 80, 75, 58, 91, 51, 73, 65, 84];
+const degrees = [29, 28, 34, 31, 25, 29, 32, 31, 24, 33, 25, 31, 26, 30];
+const salesVolume = [77, 62, 93, 84, 59, 64, 80, 75, 58, 91, 51, 73, 65, 84];
 
 // for 繪圖用
 const dataset = [];
