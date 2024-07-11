@@ -13,26 +13,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!-- 給行動裝置或平板顯示用，根據裝置寬度而定，初始放大比例 1 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 載入 bootstrap 的 css 方便我們快速設計網站-->
+    <!-- 載入 bootstrap 的 css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="shortcut icon" href="images/favicon.ico">
     <style>
-        /* 將單一元素置中並更改字體 */
         h1.text-center {
             text-align: center;
-            font-family: "標楷體", sans-serif; /* 設置為標楷體字型 */
+            font-family: "標楷體", sans-serif; 
         }
         #bbr {
             text-align: center;
-            font-family: "標楷體", sans-serif; /* 設置為標楷體字型 */
+            font-family: "標楷體", sans-serif; 
         }
     </style>
 
     <style>
-        /* 添加版權樣式 */
         .footer {
             background-color: #f4f4f4;
             padding: 10px 0;
@@ -77,11 +74,8 @@
     
     <div class="jumbotron">
         <div class="container">
-          <!-- 建立第一個 row 空間，裡面準備放格線系統 -->
           <div class="row">
-            <!-- 在 xs 尺寸，佔12格，可參考 http://getbootstrap.com/css/#grid 說明-->
             <div class="col-xs-12">
-              <!--網站標題-->
                 
               <h1 class="text-center">溫度感測</h1>
               <h5 class="text-center">
@@ -94,7 +88,7 @@
               <!-- 選單 -->
               <ul class="nav nav-pills">
                 <li role="presentation"><a href="index.html">首頁</a></li>
-                <li role="presentation" class="active"><a href="input.html">輸入資料</a></li>
+                <!--<li role="presentation"><a href="input.html">資料格式轉換</a></li> -->
                 <li role="presentation"><a href="form.html">折線圖</a></li>
                 <li role="presentation"><a href="about.html">about</a></li>
                 </ul>
@@ -155,7 +149,7 @@
         
         <script>
         document.getElementById("dataForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // 防止表單提交到另一個頁面
+            event.preventDefault();
             
             var inputData = document.getElementById("data").value;
             
@@ -164,13 +158,13 @@
             var matche = inputData.match(/\d+/g);
             var resultList1 = document.getElementById("resultList1");
             var resultList2 = document.getElementById("resultList2");
-            resultList1.innerHTML = ""; // 清空先前的方式一結果
-            resultList2.innerHTML = ""; // 清空先前的方式二結果
+            resultList1.innerHTML = ""; 
+            resultList2.innerHTML = ""; // 清空
             
             if (matches) {
-                var output1 = ''; // 用於方式一的輸出
+                var output1 = ''; // 方式一
                 
-                var halfLength = Math.ceil(matches.length / 2); // 計算數字的一半
+                var halfLength = Math.ceil(matches.length / 2); 
                 
                 for (var i = 0; i < halfLength; i++) {
                     // 方式一：前半部分輸出t=數字
@@ -178,7 +172,7 @@
                 }
                 
                 for (var i = halfLength; i < matches.length; i++) {
-                    // 方式一：後半部分輸出h=數字
+                    // 方式：後半部分輸出h=數字
                     output1 += 'h=' + matches[i] + '<br>';
                 }
                 
@@ -236,31 +230,26 @@
       <h2>目前系統數據</h2>
 
       <div id="outputData">
-          <!-- 這裡會放置資料輸出 -->
       </div>
 
 
       <br><script src="data.js"></script>
       <script>
-        // 移除所有換行符
+        // 移除換行符
         //var dataArr = myData.split('\n');
     
-        // 按照指定的格式分割資料
         var dataArr = myData.split(' ');
     
         var outputDataDiv = document.getElementById("outputData");
     
-        // 將資料按照指定格式輸出到網頁上
         for (var i = 0; i < dataArr.length; i++) {
             if (i % 2 === 0) {
                 var p = document.createElement("p");
                 var line = "";
-                // 每兩個資料為一組，以 't=數字 h=數字' 的格式顯示
                 line += dataArr[i] + ' ' + dataArr[i + 1];
                 p.textContent = line;
                 outputDataDiv.appendChild(p);
     
-                // 加上換行
                 outputDataDiv.appendChild(document.createElement("br"));
             }
         }
