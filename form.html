@@ -16,18 +16,17 @@
     <style>
         h4 {
             text-align: center;
-            font-family: "標楷體", sans-serif; /* 設置為標楷體字型 */
+            font-family: "標楷體", sans-serif; 
         }
         h2 {
             text-align: center;
-            font-family: "標楷體", sans-serif; /* 設置為標楷體字型 */
+            font-family: "標楷體", sans-serif;
         }
         canvas {
             display: block;
             width: 100% !important;
             height: auto !important;
         }
-        /* 調整表格的寬度 */
         #myChart {
             max-width: 800px; /* 設定最大寬度 */
             margin: 0 auto; /* 將圖表置中 */
@@ -65,7 +64,6 @@
     </style>
 
     <style>
-        /* 將單一元素置中並更改字體 */
         h1.text-center {
             text-align: center;
             font-family: "標楷體", sans-serif; /* 設置為標楷體字型 */
@@ -103,7 +101,6 @@
 
 <!-- -->
 
-    <!-- 在這裡插入你的圖表 -->
     <h2>三者溫度數據</h2>
     <canvas id="myChart" width="1200" height="500"></canvas>
     <br><br><hr><br><br>
@@ -143,47 +140,36 @@
     <script src="data.js"></script>
 
     <script>
-        // 原始溫濕度資料
         const rawData = myData;
 
-        // 分割資料為陣列
         const dataArray = rawData.split(" ");
 
-        // 創建空陣列以存儲處理後的資料
         const data = [];
 
-        // 處理每條原始資料
         dataArray.forEach(entry => {
-            // 匹配溫度和濕度數據
             const tempMatch = entry.match(/t=(-?\d+\.\d+)/);
             const humidMatch = entry.match(/h=(-?\d+\.\d+)/);
             const tMatch = entry.match(/s=(-?\d+\.\d+)/);
 
-            // 如果匹配成功，則提取溫度和濕度數據
             if (tempMatch) {
                 const temp = parseFloat(tempMatch[1]);
-                // 添加到 data 陣列中
                 data.push({ temperature: temp });
             }
 
             if (humidMatch) {
                 const humid = parseFloat(humidMatch[1]);
-                // 添加到 data 陣列中
                 data.push({ humidity: humid });
             }
             if (tMatch) {
                 const t = parseFloat(tMatch[1]);
-                // 添加到 data 陣列中
                 data.push({ t: t });
             }
         });
 
-        // 提取溫度和濕度數據
         const temperatures = data.filter(entry => entry.temperature !== undefined).map(entry => entry.temperature);
         const humidities = data.filter(entry => entry.humidity !== undefined).map(entry => entry.humidity);
         const tt = data.filter(entry => entry.t !== undefined).map(entry => entry.t);
 
-        // 創建圖表
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
             type: 'line',
@@ -226,27 +212,21 @@
 
 <script src="data.js"></script>
 <script>
-    // 原始溫濕度資料
     const rawData2 = myData;
 
-    // 分割資料為陣列
     const dataArray2 = rawData2.split(" ");
 
-    // 創建空陣列以存儲處理後的資料
     const data2 = [];
     let sumc = 0, sumh = 0, suma = 0;
     let mc = 0, mh = 0, ma = 0;
     let cu = 0; let hu = 0;let au = 0;
     let ii = 0;
 
-    // 處理每條原始資料
     dataArray2.forEach(entry => {
-        // 匹配溫度和濕度數據
         const tempMatch2 = entry.match(/t=(-?\d+\.\d+)/);
         const humidMatch2 = entry.match(/h=(-?\d+\.\d+)/);
         const tMatch2 = entry.match(/s=(-?\d+\.\d+)/);
 
-        // 如果匹配成功，則提取溫度和濕度數據
         if (tempMatch2) {
             const temp2 = parseFloat(tempMatch2[1]);
             sumc += temp2;
@@ -266,20 +246,16 @@
         ii++;
     });
 
-    // 計算平均值
     sumc = sumc /101;
     sumh = sumh / 101;
     suma = suma /101;
 
     ii = 0;
-    // 計算迴歸直線斜率
     dataArray2.forEach(entry => {
-        // 匹配溫度和濕度數據
         const tempMatch2 = entry.match(/t=(-?\d+\.\d+)/);
         const humidMatch2 = entry.match(/h=(-?\d+\.\d+)/);
         const tMatch2 = entry.match(/s=(-?\d+\.\d+)/);
 
-        // 如果匹配成功，則提取溫度和濕度數據
         if (tempMatch2) {
             const temp2 = parseFloat(tempMatch2[1]);
             mc += (temp2 - sumc) * (ii - 51);
@@ -299,22 +275,19 @@
         ii++;
     });
 
-    // 計算迴歸直線斜率
     mc = mc / cu;
     mh = mh / cu;
     ma = ma / cu;
 
-    // 計算迴歸直線截距
     let interceptC = sumc;
     let interceptH = sumh;
     let interceptA = suma;
 
-    // 提取溫度和濕度數據
     const temperatures2 = data2.filter(entry => entry.temperature2 !== undefined).map(entry => entry.temperature2);
     const humidities2 = data2.filter(entry => entry.humidity2 !== undefined).map(entry => entry.humidity2);
     const tt2 = data2.filter(entry => entry.t2 !== undefined).map(entry => entry.t2);
 
-    // 創建圖表
+
     const ctx2 = document.getElementById('myChart2').getContext('2d');
     const myChart2 = new Chart(ctx2, {
         type: 'line',
@@ -550,195 +523,8 @@
     <div id="app" style="width: 500px;height:400px;"></div>
     
     <script>
-    /*
-Highcharts.theme = {
-   colors: ['#DF5353', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
-      '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
-   chart: {
-      backgroundColor: {
-         linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-         stops: [
-            [0, '#2a2a2b'],
-            [1, '#3e3e40']
-         ]
-      },
-      style: {
-         fontFamily: '\'Unica One\', sans-serif'
-      },
-      plotBorderColor: '#606063'
-   },
-   title: {
-      style: {
-         color: '#E0E0E3',
-         textTransform: 'uppercase',
-         fontSize: '20px'
-      }
-   },
-   subtitle: {
-      style: {
-         color: '#E0E0E3',
-         textTransform: 'uppercase'
-      }
-   },
-   xAxis: {
-      gridLineColor: '#707073',
-      labels: {
-         style: {
-            color: '#E0E0E3'
-         }
-      },
-      lineColor: '#707073',
-      minorGridLineColor: '#505053',
-      tickColor: '#707073',
-      title: {
-         style: {
-            color: '#A0A0A3'
-         }
-      }
-   },
-   yAxis: {
-      gridLineColor: '#707073',
-      labels: {
-         style: {
-            color: '#E0E0E3'
-         }
-      },
-      lineColor: '#707073',
-      minorGridLineColor: '#505053',
-      tickColor: '#707073',
-      tickWidth: 1,
-      title: {
-         style: {
-            color: '#A0A0A3'
-         }
-      }
-   },
-   tooltip: {
-      backgroundColor: 'rgba(0, 0, 0, 0.85)',
-      style: {
-         color: '#F0F0F0'
-      }
-   },
-   
-   legend: {
-      itemStyle: {
-         color: '#E0E0E3'
-      },
-      itemHoverStyle: {
-         color: '#FFF'
-      },
-      itemHiddenStyle: {
-         color: '#606063'
-      }
-   },
-   credits: {
-      style: {
-         color: '#666'
-      }
-   },
-   labels: {
-      style: {
-         color: '#707073'
-      }
-   }
-};
-
-// Apply the theme
-Highcharts.setOptions(Highcharts.theme);
 
 
-// 建構資料
-const degrees = [29, 28, 34, 31, 25, 29, 32, 31, 24, 33, 25, 31, 26, 30];
-const salesVolume = [77, 62, 93, 84, 59, 64, 80, 75, 58, 91, 51, 73, 65, 84];
-
-// for 繪圖用
-const dataset = [];
-for (let i=0; i<14; i++) {
-    dataset.push({
-        x: degrees[i],
-        y: salesVolume[i]
-    })
-}
-      
-// 運用 Deeplearn.js 結構化資料
-const degrees_data = dl.tensor1d(degrees);
-const salesVolume_data = dl.tensor1d(salesVolume);
-
-// 要 train 的參數 aw, ba
-const aw = dl.variable(dl.scalar(Math.random()));
-const ba = dl.variable(dl.scalar(Math.random()));
-
-// 定義目標函數 與 loss function （最一般的 mean square）
-// f = aw * X + ba
-const f = x => aw.mul(x).add(ba);
-const loss = (pred, label) => pred.sub(label).square().mean();
-          
-// 採用 stochastic gradient descent 來做最佳化 
-// learning rate 這邊不能設太大
-const learningRate = 0.0005;
-const optimizer = dl.train.sgd(learningRate);
-
-// trianing
-for (let i = 0; i < 30; i++) {
-  const cost = optimizer.minimize(() => loss(f(degrees_data), salesVolume_data), true, [aw, ba])
-  console.log('cost');
-  cost.print();
-  console.log('aw');
-  aw.print();
-  console.log('ba');
-  ba.print();
-}
-
-
-// 利用 dataSync() 取出 training 後得到的係數
-const awPredict = aw.dataSync();
-const baPredict = ba.dataSync();
-
-// 根據算出的係數，畫出線條頭尾兩點
-const dataLine = [
-    [22, parseFloat(22 * awPredict + baPredict)],
-    [35, parseFloat(35 * awPredict + baPredict)]
-]
-
-// 用 HighCharts 繪圖
-const options = {
-    title: {
-        text: 'deeplearn.js  最高溫與紅茶銷售量'                 
-    },
-    xAxis: {
-      title: {
-        text: '氣溫'                 
-      },
-      min: 20,
-      max: 40
-    },
-    yAxis: {
-      title: {
-        text: '銷售量'                 
-      },
-      min: 40,
-      max: 100
-    },
-    series: [
-        {
-            type: 'line',
-            name: 'predict line',
-            data: dataLine
-        },  
-        {
-            type: 'scatter',
-            name: 'dataset',
-            marker: {
-                symbol: 'cross',  
-                radius: 4         
-            },
-            data: dataset
-        }
-    ]
-}
-// 繪製圖表
-const chart = Highcharts.chart('app', options);
-     */
     </script>
 </body>
 </html>
